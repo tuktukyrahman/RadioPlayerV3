@@ -1,21 +1,3 @@
-"""
-RadioPlayerV3, Telegram Voice Chat Bot
-Copyright (c) 2021  Asm Safone <https://github.com/AsmSafone>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>
-"""
-
 import asyncio
 from pyrogram import Client, filters
 from utils import USERNAME
@@ -40,8 +22,8 @@ async def nopm(client, message):
             await client.delete_messages(message.chat.id, [old["msg"], old["s"]])
         msg[message.chat.id]={"msg":m.updates[1].message.id, "s":message.message_id}
     except BotInlineDisabled:
-            print(f"Inline Mode for @{USERNAME} is not enabled. Enable it from @Botfather to turn on PM Guard !")
-            await message.reply_text(f"{REPLY_MESSAGE}\n\n<b>© Powered By : \n@P_R_I_Y_O_O 👑</b>")
+            print(f"Inline Mode for @{USERNAME} ɪs ɴᴏᴛ ᴇɴᴀʙʟᴇᴅ. ᴇɴᴀʙʟᴇ ɪᴛ ғʀᴏᴍ @ʙᴏᴛғᴀᴛʜᴇʀ ᴛᴏ ᴛᴜʀɴ ᴏɴ ᴘᴍ ɢᴜᴀʀᴅ !")
+            await message.reply_text(f"{REPLY_MESSAGE}\n\n<b>© ᴘᴏᴡᴇʀᴇᴅ ʙʏ : \n@ᴘ_ʀ_ɪ_ʏ_ᴏ_ᴏ</b>")
     except Exception as e:
         print(e)
         pass
