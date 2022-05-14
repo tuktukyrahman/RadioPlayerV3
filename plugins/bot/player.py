@@ -1,21 +1,3 @@
-"""
-RadioPlayerV3, Telegram Voice Chat Bot
-Copyright (c) 2021  Asm Safone <https://github.com/AsmSafone>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>
-"""
-
 import os
 import re
 import ffmpeg
@@ -58,7 +40,7 @@ async def yplay(_, message: Message):
     if ADMIN_ONLY == "True":
         admins = await mp.get_admins(CHAT_ID)
         if message.from_user.id not in admins:
-            m=await message.reply_sticker("CAACAgUAAxkBAAEBpyZhF4R-ZbS5HUrOxI_MSQ10hQt65QACcAMAApOsoVSPUT5eqj5H0h4E")
+            m=await message.reply_sticker("CAACAgUAAxkBAAEEuLlif4KnFcDO5gSh7J2V4TNbONJXqgACZQMAAgux8FS-36INgWSbViQE")
             await mp.delete(m)
             await mp.delete(message)
             return
@@ -91,7 +73,7 @@ async def yplay(_, message: Message):
                 type="query"
                 ysearch=query
         else:
-            d=await message.reply_text("❗️ __You Didn't Give Me Anything To Play, Send Me An Audio File or Reply /play To An Audio File!__")
+            d=await message.reply_text("❗️ __ʏᴏᴜ ᴅɪᴅɴ'ᴛ ɢɪᴠᴇ ᴍᴇ ᴀɴʏᴛʜɪɴɢ ᴛᴏ ᴘʟᴀʏ, ꜱᴇɴᴅ ᴍᴇ ᴀɴ ᴀᴜᴅɪᴏ ꜰɪʟᴇ ᴏʀ ʀᴇᴘʟʏ /ᴘʟᴀʏ ᴛᴏ ᴀɴ ᴀᴜᴅɪᴏ ꜰɪʟᴇ!__")
             await mp.delete(d)
             await mp.delete(message)
             return
@@ -111,7 +93,7 @@ async def yplay(_, message: Message):
         data={1:m_audio.audio.title, 2:m_audio.audio.file_id, 3:"telegram", 4:user}
         playlist.append(data)
         if len(playlist) == 1:
-            m_status = await message.reply_text("⚡️")
+            m_status = await message.reply_text("ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ sᴏɴɢ...")
             await mp.download_audio(playlist[0])
             if 1 in RADIO:
                 if group_call:
@@ -160,18 +142,18 @@ async def yplay(_, message: Message):
 
     if type=="youtube" or type=="query":
         if type=="youtube":
-            msg = await message.reply_text("🔍")
+            msg = await message.reply_text("sᴇᴀʀᴄʜɪɴɢ...")
             url=yturl
         elif type=="query":
             try:
-                msg = await message.reply_text("🔍")
+                msg = await message.reply_text("sᴇᴀʀᴄʜɪɴɢ...")
                 ytquery=ysearch
                 results = YoutubeSearch(ytquery, max_results=1).to_dict()
                 url = f"https://youtube.com{results[0]['url_suffix']}"
                 title = results[0]["title"][:40]
             except Exception as e:
                 await msg.edit(
-                    "**Literary Found Noting!\nTry Searching On Inline 😉!**"
+                    "**ʟɪᴛᴇʀᴀʀʏ ғᴏᴜɴᴅ ɴᴏᴛɪɴɢ!\nᴛʀʏ sᴇᴀʀᴄʜɪɴɢ ᴏɴ ɪɴʟɪɴᴇ 😉!**"
                 )
                 print(str(e))
                 return
@@ -207,7 +189,7 @@ async def yplay(_, message: Message):
         group_call = mp.group_call
         client = group_call.client
         if len(playlist) == 1:
-            m_status = await msg.edit("⚡️")
+            m_status = await msg.edit("ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ sᴏɴɢ...")
             await mp.download_audio(playlist[0])
             if 1 in RADIO:
                 if group_call:
@@ -260,7 +242,7 @@ async def yplay(_, message: Message):
 @Client.on_message(filters.command(["current", f"current@{USERNAME}"]) & (filters.chat(CHAT_ID) | filters.private | filters.chat(LOG_GROUP)))
 async def current(_, m: Message):
     if not playlist:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} **Nothing Is Playing!**")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} **ɴᴏᴛʜɪɴɢ ɪꜱ ᴘʟᴀʏɪɴɢ!**")
         await mp.delete(k)
         await m.delete()
         return
@@ -310,17 +292,17 @@ async def current(_, m: Message):
 async def set_vol(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text(f"{emoji.ROBOT} **Didn't Joined Any Voice Chat!**")
+        k=await m.reply_text(f"{emoji.ROBOT} **ᴅɪᴅɴ'ᴛ ᴊᴏɪɴᴇᴅ ᴀɴʏ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
     if len(m.command) < 2:
-        k=await m.reply_text(f"{emoji.ROBOT} **You Forgot To Pass Volume (0-200)!**")
+        k=await m.reply_text(f"{emoji.ROBOT} **ʏᴏᴜ ꜰᴏʀɢᴏᴛ ᴛᴏ ᴘᴀꜱꜱ ᴠᴏʟᴜᴍᴇ (0-200)!**")
         await mp.delete(k)
         await mp.delete(m)
         return
     await group_call.set_my_volume(int(m.command[1]))
-    k=await m.reply_text(f"{emoji.SPEAKER_MEDIUM_VOLUME} **Volume Set To {m.command[1]}!**")
+    k=await m.reply_text(f"{emoji.SPEAKER_MEDIUM_VOLUME} **ᴠᴏʟᴜᴍᴇ ꜱᴇᴛ ᴛᴏ {m.command[1]}!**")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -329,7 +311,7 @@ async def set_vol(_, m: Message):
 async def skip_track(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} **Nothing Is Playing To Skip!**")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} **ɴᴏᴛʜɪɴɢ ɪꜱ ᴘʟᴀʏɪɴɢ ᴛᴏ ꜱᴋɪᴘ!**")
         await mp.delete(k)
         await m.delete()
         return
@@ -359,9 +341,9 @@ async def skip_track(_, m: Message):
                 if 2 <= i <= (len(playlist) - 1):
                     audio = f"{playlist[i][1]}"
                     playlist.pop(i)
-                    text.append(f"{emoji.WASTEBASKET} **Succesfully Skipped** - {i}. **{audio}**")
+                    text.append(f"{emoji.WASTEBASKET} **ꜱᴜᴄᴄᴇꜱꜰᴜʟʟʏ ꜱᴋɪᴘᴘᴇᴅ** - {i}. **{audio}**")
                 else:
-                    text.append(f"{emoji.CROSS_MARK} **Can't Skip First Two Song** - {i}")
+                    text.append(f"{emoji.CROSS_MARK} **ᴄᴀɴ'ᴛ ꜱᴋɪᴘ ꜰɪʀꜱᴛ ᴛᴡᴏ ꜱᴏɴɢ** - {i}")
             k=await m.reply_text("\n".join(text))
             await mp.delete(k)
             if not playlist:
@@ -389,13 +371,13 @@ async def skip_track(_, m: Message):
 async def join_group_call(client, m: Message):
     group_call = mp.group_call
     if group_call.is_connected:
-        k=await m.reply_text(f"{emoji.ROBOT} **Already Joined To The Voice Chat!**")
+        k=await m.reply_text(f"{emoji.ROBOT} **ᴀʟʀᴇᴀᴅʏ ᴊᴏɪɴᴇᴅ ᴛᴏ ᴛʜᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
     await mp.start_call()
     chat = await client.get_chat(CHAT_ID)
-    k=await m.reply_text(f"{emoji.CHECK_MARK_BUTTON} **Joined The Voice Chat In {chat.title} Successfully!**")
+    k=await m.reply_text(f"{emoji.CHECK_MARK_BUTTON} **ᴊᴏɪɴᴇᴅ ᴛʜᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ ɪɴ {chat.title} ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ!**")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -404,7 +386,7 @@ async def join_group_call(client, m: Message):
 async def leave_voice_chat(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text(f"{emoji.ROBOT} **Didn't Joined Any Voice Chat!**")
+        k=await m.reply_text(f"{emoji.ROBOT} **ᴅɪᴅɴ'ᴛ ᴊᴏɪɴᴇᴅ ᴀɴʏ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
@@ -413,7 +395,7 @@ async def leave_voice_chat(_, m: Message):
         await mp.stop_radio()
     group_call.input_filename = ''
     await group_call.stop()
-    k=await m.reply_text(f"{emoji.CROSS_MARK_BUTTON} **Left From The Voice Chat Successfully!**")
+    k=await m.reply_text(f"{emoji.CROSS_MARK_BUTTON} **ʟᴇꜰᴛ ꜰʀᴏᴍ ᴛʜᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ!**")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -423,14 +405,14 @@ async def leave_voice_chat(_, m: Message):
 async def stop_playing(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} **Nothing Is Playing To Stop!**")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} **ɴᴏᴛʜɪɴɢ ɪꜱ ᴘʟᴀʏɪɴɢ ᴛᴏ ꜱᴛᴏᴘ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
     if 1 in RADIO:
         await mp.stop_radio()
     group_call.stop_playout()
-    k=await m.reply_text(f"{emoji.STOP_BUTTON} **Stopped Playing!**")
+    k=await m.reply_text(f"{emoji.STOP_BUTTON} **ꜱᴛᴏᴘᴘᴇᴅ ᴘʟᴀʏɪɴɢ!**")
     playlist.clear()
     await mp.delete(k)
     await mp.delete(m)
@@ -440,7 +422,7 @@ async def stop_playing(_, m: Message):
 async def restart_playing(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} **Nothing Is Playing To Replay!**")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} **ɴᴏᴛʜɪɴɢ ɪꜱ ᴘʟᴀʏɪɴɢ ᴛᴏ ʀᴇᴘʟᴀʏ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
@@ -452,7 +434,7 @@ async def restart_playing(_, m: Message):
     group_call.restart_playout()
     k=await m.reply_text(
         f"{emoji.COUNTERCLOCKWISE_ARROWS_BUTTON}  "
-        "**Playing From The Beginning!**"
+        "**ᴘʟᴀʏɪɴɢ ꜰʀᴏᴍ ᴛʜᴇ ʙᴇɢɪɴɴɪɴɢ!**"
     )
     await mp.delete(k)
     await mp.delete(m)
@@ -462,12 +444,12 @@ async def restart_playing(_, m: Message):
 async def pause_playing(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} **Nothing Is Playing To Pause!**")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} **ɴᴏᴛʜɪɴɢ ɪꜱ ᴘʟᴀʏɪɴɢ ᴛᴏ ᴘᴀᴜꜱᴇ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
     mp.group_call.pause_playout()
-    k=await m.reply_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **Paused Playing!**",
+    k=await m.reply_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **ᴘᴀᴜꜱᴇᴅ ᴘʟᴀʏɪɴɢ!**",
                                quote=False)
     await mp.delete(k)
     await mp.delete(m)
@@ -477,12 +459,12 @@ async def pause_playing(_, m: Message):
 @Client.on_message(filters.command(["resume", f"resume@{USERNAME}"]) & ADMINS_FILTER & (filters.chat(CHAT_ID) | filters.private | filters.chat(LOG_GROUP)))
 async def resume_playing(_, m: Message):
     if not mp.group_call.is_connected:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} **Nothing Is Paused To Resume!**")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} **ɴᴏᴛʜɪɴɢ ɪꜱ ᴘᴀᴜꜱᴇᴅ ᴛᴏ ʀᴇꜱᴜᴍᴇ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
     mp.group_call.resume_playout()
-    k=await m.reply_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **Resumed Playing!**",
+    k=await m.reply_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} **ʀᴇꜱᴜᴍᴇᴅ ᴘʟᴀʏɪɴɢ!**",
                                quote=False)
     await mp.delete(k)
     await mp.delete(m)
@@ -501,7 +483,7 @@ async def clean_raw_pcm(client, m: Message):
             if fn.endswith(".raw"):
                 count += 1
                 os.remove(os.path.join(download_dir, fn))
-    k=await m.reply_text(f"{emoji.WASTEBASKET} **Cleaned {count} Files!**")
+    k=await m.reply_text(f"{emoji.WASTEBASKET} **ᴄʟᴇᴀɴᴇᴅ {count} ꜰɪʟᴇꜱ!**")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -510,12 +492,12 @@ async def clean_raw_pcm(client, m: Message):
 async def mute(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} **Nothing Is Playing To Mute!**")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} **ɴᴏᴛʜɪɴɢ ɪꜱ ᴘʟᴀʏɪɴɢ ᴛᴏ ᴍᴜᴛᴇ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
     await group_call.set_is_mute(True)
-    k=await m.reply_text(f"{emoji.MUTED_SPEAKER} **User Muted!**")
+    k=await m.reply_text(f"{emoji.MUTED_SPEAKER} **ᴜꜱᴇʀ ᴍᴜᴛᴇᴅ!**")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -523,19 +505,19 @@ async def mute(_, m: Message):
 async def unmute(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} **Nothing Is Muted To Unmute!**")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} **ɴᴏᴛʜɪɴɢ ɪꜱ ᴍᴜᴛᴇᴅ ᴛᴏ ᴜɴᴍᴜᴛᴇ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
     await group_call.set_is_mute(False)
-    k=await m.reply_text(f"{emoji.SPEAKER_MEDIUM_VOLUME} **User Unmuted!**")
+    k=await m.reply_text(f"{emoji.SPEAKER_MEDIUM_VOLUME} **ᴜꜱᴇʀ ᴜɴᴍᴜᴛᴇᴅ!**")
     await mp.delete(k)
     await mp.delete(m)
 
 @Client.on_message(filters.command(["playlist", f"playlist@{USERNAME}"]) & (filters.chat(CHAT_ID) | filters.private | filters.chat(LOG_GROUP)))
 async def show_playlist(_, m: Message):
     if not playlist:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} **Nothing Is Playing!**")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} **ɴᴏᴛʜɪɴɢ ɪꜱ ᴘʟᴀʏɪɴɢ!**")
         await mp.delete(k)
         await mp.delete(m)
         return
@@ -556,7 +538,7 @@ admincmds=["join", "unmute", "mute", "leave", "clean", "pause", "resume", "stop"
 
 @Client.on_message(filters.command(admincmds) & ~ADMINS_FILTER & (filters.chat(CHAT_ID) | filters.private | filters.chat(LOG_GROUP)))
 async def notforu(_, m: Message):
-    k=await m.reply_sticker("CAACAgUAAxkBAAEBpyZhF4R-ZbS5HUrOxI_MSQ10hQt65QACcAMAApOsoVSPUT5eqj5H0h4E")
+    k=await m.reply_sticker("CAACAgUAAxkBAAEEuLlif4KnFcDO5gSh7J2V4TNbONJXqgACZQMAAgux8FS-36INgWSbViQE")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -566,12 +548,12 @@ allcmd = ["play", "current", "playlist", "song", f"song@{USERNAME}", f"play@{USE
 async def not_chat(_, m: Message):
     buttons = [
             [
-                InlineKeyboardButton("CHANNEL", url="https://t.me/AsmSafone"),
-                InlineKeyboardButton("SUPPORT", url="https://t.me/AsmSupport"),
+                InlineKeyboardButton("CHANNEL", url="https://t.me/P_R_I_Y_O_O"),
+                InlineKeyboardButton("SUPPORT", url="https://t.me/P_R_I_Y_O_O"),
             ],
             [
-                InlineKeyboardButton("🤖 MAKE YOUR OWN BOT 🤖", url="https://heroku.com/deploy?template=https://github.com/AsmSafone/RadioPlayerV3"),
+                InlineKeyboardButton("🤖 MAKE YOUR OWN BOT 🤖", url="https://heroku.com/deploy?template=https://github.com/itspriyo/RadioPlayerV3"),
             ]
          ]
-    k=await m.reply_photo(photo="https://telegra.ph/file/4e839766d45935998e9c6.jpg", caption="**Sorry, You Can't Use This Bot In This Group! 🤷‍♂️ But You Can Make Your Own Bot Like This From The [Source Code](https://github.com/AsmSafone/RadioPlayerV3) Below 😉!**", reply_markup=InlineKeyboardMarkup(buttons))
+    k=await m.reply_photo(photo="https://telegra.ph/file/d28dab00015cfa9fbeac3.jpg", caption="**Sorry, You Can't Use This Bot In This Group! 🤷‍♂️ But You Can Make Your Own Bot Like This From The [Source Code](https://github.com/itspriyo/RadioPlayerV3) Below 😉!**", reply_markup=InlineKeyboardMarkup(buttons))
     await mp.delete(m)
