@@ -31,11 +31,11 @@ buttons = [
                 InlineKeyboardButton("❔ HOW TO USE ME ❔", callback_data="help"),
             ],
             [
-                InlineKeyboardButton("CHANNEL", url="https://t.me/AsmSafone"),
-                InlineKeyboardButton("SUPPORT", url="https://t.me/AsmSupport"),
+                InlineKeyboardButton("CHANNEL", url="https://t.me/P_R_I_Y_O_O"),
+                InlineKeyboardButton("SUPPORT", url="https://t.me/P_R_I_Y_O_O"),
             ],
             [
-                InlineKeyboardButton("🤖 MAKE YOUR OWN BOT 🤖", url="https://heroku.com/deploy?template=https://github.com/AsmSafone/RadioPlayerV3"),
+                InlineKeyboardButton("🤖 MAKE YOUR OWN BOT 🤖", url="https://heroku.com/deploy?template=https://github.com/itspriyo/RadioPlayerV3"),
             ]
          ]
 
@@ -43,13 +43,13 @@ buttons = [
 @Client.on_inline_query()
 async def search(client, query):
     answers = []
-    if query.query == "SAF_ONE":
+    if query.query == "P_R_I_Y_O_O":
         answers.append(
             InlineQueryResultPhoto(
                 title="Deploy Your Own Radio Player",
-                thumb_url="https://telegra.ph/file/4e839766d45935998e9c6.jpg",
-                photo_url="https://telegra.ph/file/4e839766d45935998e9c6.jpg",
-                caption=f"{REPLY_MESSAGE}\n\n<b>© Powered By : \n@AsmSafone | @AsmSupport 👑</b>",
+                thumb_url="-",
+                photo_url="-",
+                caption=f"{REPLY_MESSAGE}\n\n<b>© Powered By : \n@P_R_I_Y_O_O 👑</b>",
                 reply_markup=InlineKeyboardMarkup(buttons)
                 )
             )
