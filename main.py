@@ -1,21 +1,3 @@
-"""
-RadioPlayerV3, Telegram Voice Chat Bot
-Copyright (c) 2021  Asm Safone <https://github.com/AsmSafone>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>
-"""
-
 import os
 import sys
 import asyncio
@@ -65,7 +47,7 @@ def stop_and_restart():
 
 bot.run(main())
 bot.start()
-print("\n\nRadio Player Bot Started, Contact @P_R_I_Y_O_O")
+print("\n\nᴍᴜsɪᴄ ᴘʟᴀʏᴇʀ ʙᴏᴛ sᴛᴀʀᴛᴇᴅ, ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ")
 bot.send(
     SetBotCommands(
         scope=BotCommandScopeDefault(),
@@ -161,13 +143,13 @@ bot.send(
 
 @bot.on_message(filters.command(["restart", f"restart@{USERNAME}"]) & filters.user(ADMINS) & (filters.chat(CHAT_ID) | filters.private | filters.chat(LOG_GROUP)))
 async def restart(_, message: Message):
-    k=await message.reply_text("🔄 **Checking ...**")
+    k=await message.reply_text("🔄 **ᴄʜᴇᴄᴋɪɴɢ...**")
     await asyncio.sleep(3)
     if Config.HEROKU_APP:
-        await k.edit("🔄 **Heroku Detected, \nRestarting Your App...**")
+        await k.edit("🔄 **ᴠᴘs ᴅᴇᴛᴇᴄᴛᴇᴅ, \nʀᴇsᴛᴀʀᴛɪɴɢ ʏᴏᴜʀ ᴀᴘᴘ...**")
         Config.HEROKU_APP.restart()
     else:
-        await k.edit("🔄 **Restarting, Please Wait...**")
+        await k.edit("🔄 **ʀᴇsᴛᴀʀᴛɪɴɢ, ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ...**")
         process = FFMPEG_PROCESSES.get(CHAT_ID)
         if process:
             try:
@@ -182,11 +164,11 @@ async def restart(_, message: Message):
             target=stop_and_restart()
             ).start()
     try:
-        await k.edit("✅ **Restarted Successfully! \nContact @P_R_I_Y_O_O For Update!**")
+        await k.edit("✅ **ʀᴇsᴛᴀʀᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ! \nᴄᴏɴᴛᴀᴄᴛ @ᴘ_ʀ_ɪ_ʏ_ᴏ_ᴏ ғᴏʀ ᴜᴘᴅᴀᴛᴇ!**")
         await k.reply_to_message.delete()
     except:
         pass
 
 idle()
-print("\n\nRadio Player Bot Stopped, Contact @P_R_I_Y_O_O!")
+print("\n\nʀᴀᴅɪᴏ ᴘʟᴀʏᴇʀ ʙᴏᴛ sᴛᴏᴘᴘᴇᴅ, ᴄᴏɴᴛᴀᴄᴛ @ᴘ_ʀ_ɪ_ʏ_ᴏ_ᴏ!")
 bot.stop()
