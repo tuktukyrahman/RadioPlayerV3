@@ -10,7 +10,7 @@ REPLY_MESSAGE=Config.REPLY_MESSAGE
 @Client.on_message(filters.private & filters.incoming & ~filters.bot & ~filters.service & ~filters.me & ~filters.edited & ~filters.chat([777000, 454000]))
 async def nopm(client, message): 
     try:
-        inline = await client.get_inline_bot_results(USERNAME, "SAF_ONE")
+        inline = await client.get_inline_bot_results(USERNAME, "P_R_I_Y_O_O")
         m=await client.send_inline_bot_result(
             message.chat.id,
             query_id=inline.query_id,
